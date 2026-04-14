@@ -8,6 +8,8 @@ class Subject{
 
 
 
+
+
 int main(){
     Subject subject;
     subject.notify(); // notify() -> function that will be overridden by the observer

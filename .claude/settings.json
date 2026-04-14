@@ -3,7 +3,9 @@
     "allow": [
       "Read(//c/Users/paulo/Desktop/Repositories/GetCraked/playground/**)",
       "Skill(commit-commands:commit-push-pr)",
-      "Skill(commit-commands:commit-push-pr:*)"
+      "Skill(commit-commands:commit-push-pr:*)",
+      "Bash(g++ -o general-know28 general-know28.cpp -std=c++17)",
+      "Bash(./general-know28)"
     ]
   }
 }

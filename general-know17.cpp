@@ -2,21 +2,36 @@
 using namespace std;
 class Door{};
 class Room{
+    public:
     virtual void describe() = 0;
     virtual ~Room() = default; //default destructor else the destructor will be deleted when the class is inherited
 };
-class BoombRoom: public Room{
+class BombRoom: public Room{
+    public:
     virtual void describe() override{
         cout << "This room has a BOMB" << endl;
     }
 
 };
 class NormalRoom: public Room{
+    public:
     virtual void describe() override{
         cout << "Just a boring room " << endl;
     }
+};
+
+class MazeBuilder{
+    virtual void buildRoom() = 0; // pure virtual
 }
+
+class NormalMazeBuilder: public MazeBuilder{
+    
+
+
+}
+
 class Maze{
+    public:
     Room* rooms;
     Door* doors;
 };
