@@ -14,9 +14,13 @@ class Bag{
         std::tuple<Types...> data; // for each data on the bag we will store it in a tuple its type
 }
 
+template<typename T>
+void print(T args){
+    std::cout << arg << '\n';
+}
+
 
 int main(){
     Bag<int, string> bag(1, "Hello");
-
 
 }

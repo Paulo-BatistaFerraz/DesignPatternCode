@@ -4,6 +4,15 @@ using namespace std;
 #include <iostream>
 #include <vector>
 
+template<typename T>
+class CustomerIterator
+{
+    public:
+        CustomerIterator(T* ptr): ptr_{ ptr}{}
+
+}
+
+
 template <typename T>
 class CustomIterator
 {
@@ -23,12 +32,12 @@ public:
         return tmp;
     }
 
-    T& operator*() {
+    T& operator*() { // dereference the pointer
         return *ptr_;
     }
 
     friend bool operator==(const CustomIterator& a, const CustomIterator& b) {
-        return a.ptr_ == b.ptr_;
+        return a.ptr_ == b.ptr_; // 
     }
 
     friend bool operator!=(const CustomIterator& a, const CustomIterator& b) {

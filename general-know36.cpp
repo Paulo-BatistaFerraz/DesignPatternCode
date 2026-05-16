@@ -41,6 +41,7 @@ std::shared_ptr<ILogger> GetLogger(std::optional<LoggerType> type) {
 
     return loggers_.at(type.value());
 }
+std::shared_ptr<Ilogger> GetLogger(std::)
 
 
 int main() {

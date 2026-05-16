@@ -14,7 +14,7 @@ import numpy as np
 import pygame
  
 # ── Settings ──────────────────────────────────────────────────────────────────
-INTERVAL_SECONDS = 30       # How long each interval lasts
+INTERVAL_SECONDS = 300       # How long each interval lasts
 SAMPLE_RATE      = 44100    # Audio sample rate (Hz)
  
 # ── Audio helpers ──────────────────────────────────────────────────────────────

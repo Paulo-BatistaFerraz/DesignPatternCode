@@ -1,66 +1,43 @@
 #include <iostream>
 using namespace std;
 
-// Abstract base class - defines the uniform interface
-// enter() takes NO arguments: state lives in the object, not in the call
-class Maze {
-public:
+class Maze{
+    public:
     virtual void enter() = 0;
     virtual ~Maze() = default;
 };
-
-class Room : public Maze {
-    int roomNumber; // member variable declared here - constructor sets it, enter() reads it
-public:
-    explicit Room(int roomNumber) : roomNumber(roomNumber) {
-        cout << "Room created: " << roomNumber << "\n";
+class Room: public Maze{
+    public:
+    Room(int roomNumber): roomNumber(roomNumber){cout << "Room created" << roomNumber << endl;};
+    virtual void enter(int roomNumber) override{ // if not constructor, then roomnumber is not stored in memory, so its lost after the constructor is called
+        cout << "Entering room" << roomNumber << endl;
     }
-
-    void enter() override { // matches Maze::enter() exactly - no arguments
-        cout << "Entering room " << roomNumber << "\n";
-    }
-
-    int getId() const { return roomNumber; } // getter so Door can read without breaking encapsulation
-
-    ~Room() {
-        cout << "Room destroyed: " << roomNumber << "\n";
-    }
+    ~Room() {cout << "Room destroyed" << roomNumber << endl;};
 };
 
-// Door is NOT a Room - it CONNECTS two Rooms (composition over inheritance)
-// Only inherits from Maze to fulfill the polymorphic interface
-class Door : public Maze {
-    Room* room1; // Door HAS rooms, it doesn't IS-A room
-    Room* room2;
-public:
-    Door(Room* r1, Room* r2) : room1(r1), room2(r2) {
-        cout << "Door created between room " << r1->getId() << " and room " << r2->getId() << "\n";
+class Door: public Maze, public Room{
+    public:
+    Door(Room* room1, Room* room2): Room(room1), Room(room2){cout << "Door created" << room1->roomNumber << " and " << room2->roomNumber << endl;};
+    virtual void enter(int roomNumber, int otherRoomNumber) override{
+        cout << "Entering door" << << roomNumber << << otherRoomNumber << endl;
     }
-
-    void enter() override { // matches Maze::enter() exactly
-        cout << "Entering door between room " << room1->getId()
-             << " and room " << room2->getId() << "\n";
-    }
-
-    ~Door() = default;
-};
-
-// createMaze returns r1 as the entry point
-// r1, r2, d are allocated on the heap - caller is responsible for cleanup
-// (in production, use unique_ptr or store components inside the maze object)
-Maze* createMaze() {
-    Room* r1 = new Room(1);
-    Room* r2 = new Room(2);
-    Door* d  = new Door(r1, r2);
-
-    (void)d; // d is created but ownership not transferred - demo only
-    return r1;
+    ~Door() = default; // if ~Door() without default, then the destructor will be deleted when
 }
 
-int main() {
-    Maze* m = createMaze();
-    m->enter(); // polymorphic call - works on Room, Door, or any future Maze subclass
 
-    delete m;
-    return 0;
+Maze* createMaze(){ // 
+    Maze* m = new Maze(); // new is used to allocate memory on the heap
+    Room* r1 = new Room(1);
+    Room* r2 = new Room(2);
+    Door* d = new Door(r1, r2);
+
+    return m;
+}
+
+
+int main(){
+    Maze *m = createMaze(); 
+    m->enter(1);
+
+
 }
